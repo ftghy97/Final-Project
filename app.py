@@ -6,8 +6,6 @@ import pandas as pd
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
 
-with open('columns.pkl', 'rb') as f:
-    columns = pickle.load(f)
 
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
                 <h1 style="color:#fff;text-align:center">Income Category Prediction</h1> 
