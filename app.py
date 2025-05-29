@@ -25,8 +25,8 @@ def main():
     stc.html(html_temp)
     menu = ["Home", "Machine Learning App"]
     choice = st.sidebar.selectbox("Menu", menu)
-
-       if choice == "Home":
+    
+     if choice == "Home":
         st.subheader("Home")
         st.markdown(desc_temp, unsafe_allow_html=True)
     elif choice == "Machine Learning App":
