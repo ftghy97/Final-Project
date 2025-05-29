@@ -30,7 +30,9 @@ def main():
         st.subheader("Home")
         st.markdown(desc_temp, unsafe_allow_html=True)
     elif choice == "Machine Learning App":
-        run_ml_app()
+        from ml_app 
+       import run_ml_app
+
 
 def run_ml_app():
     design = """<div style="padding:15px;">
