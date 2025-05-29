@@ -39,8 +39,7 @@ def run_ml_app():
     #If button is clilcked
     pass
 
-def predict(Age, Workclass, Final Weight, EducationNum, Marital Status, Occupation, 
-            Relationship, Race, Gender, Capital Gain, Capital loss, Hours per WEEK, Native Country, Income):
+def predict(Age, Workclass, Final Weight, EducationNum, Marital Status, Occupation, Relationship, Race, Gender, Capital Gain, Capital loss, Hours per week, Native Country, Income):
     
     #Making prediction
     pass
