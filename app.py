@@ -39,7 +39,7 @@ def run_ml_app():
     age = left.number_input(label = 'Age',
                             min_value = 17, max_value = 100)
     workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
-    final_weight = left.number_input('Final Weight')
+    final_weight = left.text_input('Final Weight')
     education = right.selectbox('Education Num', (
     'Preschool',
     '1st-4th',
