@@ -29,7 +29,7 @@ def main():
     if choice == "Home":
         st.subheader("Home")
         st.markdown(desc_temp, unsafe_allow_html=True)
-    elif choice == "Machine Learning App"
+    elif choice == "Machine Learning App":
          run_ml_app()
 
 
