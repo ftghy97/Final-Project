@@ -162,8 +162,6 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
 
     
 
-    # Buat DataFrame
-    df = pd.DataFrame([input_data])
 
     # Prediksi
     prediction = xgboost_model.predict(df)[0]
