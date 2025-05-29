@@ -3,21 +3,20 @@ import streamlit.components.v1 as stc
 import pickle
 import pandas as pd
 
-# Load model
 with open('xgboost_model.pkl', 'rb') as file:
-    xgboost_model = pickle.load(file)
+   xgboost_model = pickle.load(file)
 
-# HTML Header
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
                 <h1 style="color:#fff;text-align:center">Income Category Prediction</h1> 
                 <h4 style="color:#fff;text-align:center">Made for: Credit Team</h4> 
-                </div>"""
+                """
 
 desc_temp = """ ### Income Category Prediction
-This app is used by Credit team 8  
-#### Data Source  
-Kaggle: Link <Masukkan Link>
-"""
+                This app is used by Credit team 8
+                
+                #### Data Source
+                Kaggle: Link <Masukkan Link>
+                """
 
 def main():
     stc.html(html_temp)
@@ -31,85 +30,67 @@ def main():
         run_ml_app()
 
 def run_ml_app():
-    st.subheader("Fill in the data to predict income category")
+    st.markdown("""<div style="padding:15px;">
+                    <h1 style="color:#fff">Income Category Prediction</h1>
+                </div""", unsafe_allow_html=True)
+
     left, right = st.columns((2,2))
 
-    age = left.number_input('Age', min_value=17, max_value=100)
-    workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
-    final_weight = left.number_input('Final Weight')
-    education = right.selectbox('Education', (
-        'Preschool','1st-4th','5th-6th','7th-8th','9th','10th','11th','12th','HS-grad',
-        'Some-college','Assoc-voc','Assoc-acdm','Bachelors','Masters','Prof-school','Doctorate'
-    ))
-    marital_status = left.selectbox('Marital Status', (
-        'Married-civ-spouse','Divorced','Never-married','Separated','Widowed','Married-spouse-absent'
-    ))
-    occupation = right.selectbox('Occupation', (
-        'Tech-support','Craft-repair','Other-service','Sales','Exec-managerial','Prof-specialty',
-        'Handlers-cleaners','Machine-op-inspct','Adm-clerical','Farming-fishing','Transport-moving',
-        'Priv-house-serv','Protective-serv','Armed-Forces'
-    ))
-    relationship = left.selectbox('Relationship', (
-        'Wife','Own-child','Husband','Not-in-family','Other-relative','Unmarried'
-    ))
-    race = right.selectbox('Race', ('White', 'Black', 'Asian-Pac-Islander', 'Amer-Indian-Eskimo'))
-    gender = left.selectbox('Gender', ('Male', 'Female'))
-    capital_gain = right.number_input('Capital Gain')
-    capital_loss = left.number_input('Capital Loss')
-    hours_per_week = right.number_input('Hours per Week')
-    native_country = right.selectbox('Native Country', (
-        'United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
-        'India','Japan','Greece','South','China','Cuba','Iran','Honduras','Philippines','Italy','Poland',
-        'Jamaica','Vietnam','Mexico','Portugal','Ireland','France','Dominican-Republic','Laos','Ecuador',
-        'Taiwan','Haiti','Columbia','Hungary','Guatemala','Nicaragua','Scotland','Thailand','Yugoslavia',
-        'El-Salvador','Trinadad&Tobago','Peru','Hong','Holand-Netherlands'
-    ))
+    # Inputs
+    age = left.number_input('Age', 17, 100)
+    final_weight = right.number_input('Final Weight', 0)
+    capital_gain = left.number_input('Capital Gain', 0)
+    capital_loss = right.number_input('Capital Loss', 0)
+    hours_per_week = left.number_input('Hours per Week', 1, 100)
+    
+    gender = right.selectbox('Gender', ('Male', 'Female'))
+    race = left.selectbox('Race', ['White', 'Black', 'Asian-Pac-Islander', 'Amer-Indian-Eskimo', 'Other'])
+    relationship = right.selectbox('Relationship', ['Not-in-family', 'Other-relative', 'Own-child', 'Unmarried', 'Wife', 'Husband'])
+    marital_status = left.selectbox('Marital Status', ['Married-AF-spouse','Married-civ-spouse', 'Married-spouse-absent', 'Never-married', 'Separated', 'Widowed'])
+    education = right.selectbox('Education', ['Preschool','1st-4th','5th-6th','7th-8th','9th','10th','11th','12th','HS-grad','Some-college','Assoc-voc','Assoc-acdm','Bachelors','Masters','Prof-school','Doctorate'])
+    workclass = left.selectbox('Workclass', ['Federal-gov', 'Local-gov', 'Never-worked', 'Private', 'Self-emp-inc', 'Self-emp-not-inc', 'State-gov', 'Without-pay'])
+    occupation = right.selectbox('Occupation', ['Adm-clerical', 'Armed-Forces', 'Craft-repair', 'Exec-managerial', 'Farming-fishing','Handlers-cleaners', 'Machine-op-inspct', 'Other-service','Priv-house-serv', 'Prof-specialty', 'Protective-serv', 'Sales', 'Tech-support', 'Transport-moving'])
+    native_country = left.selectbox('Native Country', ['Cambodia', 'Canada', 'China', 'Columbia', 'Cuba','Dominican-Republic', 'Ecuador', 'El-Salvador', 'England','France', 'Germany', 'Greece', 'Guatemala', 'Haiti','Holand-Netherlands', 'Honduras', 'Hong', 'Hungary','India', 'Iran', 'Ireland', 'Italy', 'Jamaica', 'Japan','Laos', 'Mexico', 'Nicaragua', 'Outlying-US(Guam-USVI-etc)','Peru', 'Philippines', 'Poland', 'Portugal', 'Puerto-Rico','Scotland', 'South', 'Taiwan', 'Thailand', 'Trinadad&Tobago','United-States', 'Vietnam', 'Yugoslavia'])
 
     if st.button("Predict Income"):
-        result = predict(age, workclass, final_weight, education, marital_status, occupation,
-                         relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
+        result = predict(age, final_weight, capital_gain, capital_loss, hours_per_week,
+                         gender, race, relationship, marital_status, education, workclass,
+                         occupation, native_country)
 
         if result == '>50K':
             st.success(f'Result: Your predicted income is {result}')
         else:
             st.error(f'Result: Your predicted income is {result}')
 
-def predict(age, workclass, final_weight, education, marital_status, occupation,
-            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
+def predict(age, final_weight, capital_gain, capital_loss, hours_per_week,
+            gender, race, relationship, marital_status, education, workclass,
+            occupation, native_country):
 
-    # Inisialisasi semua nilai 0
-    input_data = {col: 0 for col in columns}
+    input_data = {
+        'Age': age,
+        'Final Weight': final_weight,
+        'Capital Gain': capital_gain,
+        'capital loss': capital_loss,
+        'Hours per Week': hours_per_week,
+        f'Gender_ {gender}': 1,
+        f'Race_ {race}': 1,
+        f'Relationship_ {relationship}': 1,
+        f'Marital Status_ {marital_status}': 1,
+        f'EducationNum': 0,  # Default jika diperlukan
+        f'Workclass_ {workclass}': 1,
+        f'Occupation_ {occupation}': 1,
+        f'Native Country_ {native_country}': 1
+    }
 
-    # Assign fitur numerik
-    input_data['age'] = float(age)
-    input_data['final_weight'] = float(final_weight)
-    input_data['capital_gain'] = float(capital_gain)
-    input_data['capital_loss'] = float(capital_loss)
-    input_data['hours_per_week'] = float(hours_per_week)
-
-    # One-hot encode categorical input (cek dulu ada kolomnya)
-    for cat, val in {
-        'workclass': workclass,
-        'education': education,
-        'marital_status': marital_status,
-        'occupation': occupation,
-        'relationship': relationship,
-        'race': race,
-        'gender': gender,
-        'native_country': native_country
-    }.items():
-        key = f'{cat}_{val}'
-        if key in input_data:
-            input_data[key] = 1
+    # Lengkapi kolom kosong supaya sesuai dengan model
+    all_cols = xgboost_model.get_booster().feature_names
+    for col in all_cols:
+        if col not in input_data:
+            input_data[col] = 0
 
     df = pd.DataFrame([input_data])
-
-    try:
-        prediction = xgboost_model.predict(df)[0]
-        return '>50K' if prediction == 1 else '<=50K'
-    except Exception as e:
-        st.error(f"Prediction failed: {e}")
-        return 'Prediction Failed'
+    prediction = xgboost_model.predict(df)[0]
+    return '>50K' if prediction == 1 else '<=50K'
 
 if __name__ == "__main__":
     main()
