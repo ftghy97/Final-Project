@@ -126,25 +126,24 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
     # Inisialisasi semua kolom dengan 0
-model = model_data['model']
-columns = model_data['columns']
+    input_data = {col: 0 for col in columns}
 
     # Assign fitur numerik
-    input_data['age'] = age
-    input_data['final_weight'] = final_weight
-    input_data['capital_gain'] = capital_gain
-    input_data['capital_loss'] = capital_loss
-    input_data['hours_per_week'] = hours_per_week
+    input_data['Age'] = age
+    input_data['Final Weight'] = final_weight
+    input_data['Capital Gain'] = capital_gain
+    input_data['capital loss'] = capital_loss
+    input_data['Hours per Week'] = hours_per_week
 
-    # One-hot categorical
-    input_data[f'workclass_{workclass}'] = 1
-    input_data[f'education_{education}'] = 1
-    input_data[f'marital_status_{marital_status}'] = 1
-    input_data[f'occupation_{occupation}'] = 1
-    input_data[f'relationship_{relationship}'] = 1
-    input_data[f'race_{race}'] = 1
-    input_data[f'gender_{gender}'] = 1
-    input_data[f'native_country_{native_country}'] = 1
+    # One-hot categorical sesuai dengan case kolom dari model
+    input_data[f'Workclass_ {workclass}'] = 1
+    input_data[f'Education_ {education}'] = 1
+    input_data[f'Marital Status_ {marital_status}'] = 1
+    input_data[f'Occupation_ {occupation}'] = 1
+    input_data[f'Relationship_ {relationship}'] = 1
+    input_data[f'Race_ {race}'] = 1
+    input_data[f'Gender_ {gender}'] = 1
+    input_data[f'Native Country_ {native_country}'] = 1
 
     # Buat DataFrame
     df = pd.DataFrame([input_data])
