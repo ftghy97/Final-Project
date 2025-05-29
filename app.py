@@ -1,4 +1,3 @@
-import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as stc
 import pickle
@@ -119,38 +118,31 @@ def run_ml_app():
         else:
             st.error(f'Result: Your predicted income is {result} ')
 
-def predict(age, workclass, final_weight, education, marital_status, occupation, relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
-    
-    #Making prediction
-       # One-hot encode manually (set to 1 only for selected value)
+def predict(age, workclass, final_weight, education, marital_status, occupation,
+            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
+
     input_dict = {
-        'age': age,
-        'capital_gain': capital_gain,
-        'capital_loss': capital_loss,
-        'hours_per_week': hours_per_week,
+        'age': int(age),
+        'capital_gain': float(capital_gain) if capital_gain else 0,
+        'capital_loss': float(capital_loss) if capital_loss else 0,
+        'hours_per_week': float(hours_per_week) if hours_per_week else 0,
         f'workclass_{workclass}': 1,
         f'education_{education}': 1,
         f'marital_status_{marital_status}': 1,
         f'occupation_{occupation}': 1,
         f'relationship_{relationship}': 1,
         f'race_{race}': 1,
-        f'gender_{gender}': 1,
+        f'sex_{gender}': 1,
         f'native_country_{native_country}': 1
     }
 
-    # Create DataFrame with correct structure
     input_df = pd.DataFrame(columns=columns)
-    input_df.loc[0] = 0  # fill all columns with 0 first
+    input_df.loc[0] = 0
     input_df.loc[0, input_dict.keys()] = input_dict.values()
 
-    # Scale numeric columns
     input_df[num_cols] = scaler.transform(input_df[num_cols])
-
-    # Predict using the trained model
     prediction = model.predict(input_df)[0]
-
-    # Convert prediction result to label
-    result = '<=50K' if prediction == 0 else '>50K'
+    result = '>50K' if prediction == 1 else '<=50K'
     return result
 
 if __name__ == "__main__":
