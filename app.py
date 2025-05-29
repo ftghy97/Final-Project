@@ -116,7 +116,7 @@ if st.button("Predict Income"):
 
 if result == '>50k':
    st.success(f'Result: Your predicted income is {result}')
-   else:
+else:
    st.error(f'Result: Your predicted income is {result} ')
            
 def predict(age, workclass, final_weight, education, marital_status, occupation,
