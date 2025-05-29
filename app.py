@@ -6,6 +6,9 @@ import pandas as pd
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
 
+with open('columns.pkl', 'rb') as f:
+    columns = pickle.load(f)
+
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
                 <h1 style="color:#fff;text-align:center">Income Category Prediction</h1> 
                 <h4 style="color:#fff;text-align:center">Made for: Credit Team</h4> 
@@ -30,65 +33,122 @@ def main():
         run_ml_app()
 
 def run_ml_app():
-    st.markdown("""<div style="padding:15px;">
+    design = """<div style="padding:15px;">
                     <h1 style="color:#fff">Income Category Prediction</h1>
-                </div""", unsafe_allow_html=True)
-
+                </div
+             """
+    st.markdown(design, unsafe_allow_html=True)
+    #Membuat Struktur Form
     left, right = st.columns((2,2))
-
-    # Inputs
-    age = left.number_input('Age', 17, 100)
-    final_weight = right.number_input('Final Weight', 0)
-    capital_gain = left.number_input('Capital Gain', 0)
-    capital_loss = right.number_input('Capital Loss', 0)
-    hours_per_week = left.number_input('Hours per Week', 1, 100)
+    age = left.number_input(label = 'Age',
+                            min_value = 17, max_value = 100)
+    workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
+    final_weight = left.text_input('Final Weight')
+    education = right.selectbox('Education', (
+    'Preschool',
+    '1st-4th',
+    '5th-6th',
+    '7th-8th',
+    '9th',
+    '10th',
+    '11th',
+    '12th',
+    'HS-grad',
+    'Some-college',
+    'Assoc-voc',
+    'Assoc-acdm',
+    'Bachelors',
+    'Masters',
+    'Prof-school',
+    'Doctorate'
+))
     
-    gender = right.selectbox('Gender', ('Male', 'Female'))
-    race = left.selectbox('Race', ['White', 'Black', 'Asian-Pac-Islander', 'Amer-Indian-Eskimo', 'Other'])
-    relationship = right.selectbox('Relationship', ['Not-in-family', 'Other-relative', 'Own-child', 'Unmarried', 'Wife', 'Husband'])
-    marital_status = left.selectbox('Marital Status', ['Married-AF-spouse','Married-civ-spouse', 'Married-spouse-absent', 'Never-married', 'Separated', 'Widowed'])
-    education = right.selectbox('Education', ['Preschool','1st-4th','5th-6th','7th-8th','9th','10th','11th','12th','HS-grad','Some-college','Assoc-voc','Assoc-acdm','Bachelors','Masters','Prof-school','Doctorate'])
-    workclass = left.selectbox('Workclass', ['Federal-gov', 'Local-gov', 'Never-worked', 'Private', 'Self-emp-inc', 'Self-emp-not-inc', 'State-gov', 'Without-pay'])
-    occupation = right.selectbox('Occupation', ['Adm-clerical', 'Armed-Forces', 'Craft-repair', 'Exec-managerial', 'Farming-fishing','Handlers-cleaners', 'Machine-op-inspct', 'Other-service','Priv-house-serv', 'Prof-specialty', 'Protective-serv', 'Sales', 'Tech-support', 'Transport-moving'])
-    native_country = left.selectbox('Native Country', ['Cambodia', 'Canada', 'China', 'Columbia', 'Cuba','Dominican-Republic', 'Ecuador', 'El-Salvador', 'England','France', 'Germany', 'Greece', 'Guatemala', 'Haiti','Holand-Netherlands', 'Honduras', 'Hong', 'Hungary','India', 'Iran', 'Ireland', 'Italy', 'Jamaica', 'Japan','Laos', 'Mexico', 'Nicaragua', 'Outlying-US(Guam-USVI-etc)','Peru', 'Philippines', 'Poland', 'Portugal', 'Puerto-Rico','Scotland', 'South', 'Taiwan', 'Thailand', 'Trinadad&Tobago','United-States', 'Vietnam', 'Yugoslavia'])
+    marital_status = left.selectbox('Marital Status', (
+    'Married-civ-spouse',
+    'Divorced',
+    'Never-married',
+    'Separated',
+    'Widowed',
+    'Married-spouse-absent'
+))
+    occupation = right.selectbox('Occupation', (
+    'Tech-support',
+    'Craft-repair',
+    'Other-service',
+    'Sales',
+    'Exec-managerial',
+    'Prof-specialty',
+    'Handlers-cleaners',
+    'Machine-op-inspct',
+    'Adm-clerical',
+    'Farming-fishing',
+    'Transport-moving',
+    'Priv-house-serv',
+    'Protective-serv',
+    'Armed-Forces'
+))
+    relationship = left.selectbox('Relationship', (
+    'Wife',
+    'Own-child',
+    'Husband',
+    'Not-in-family',
+    'Other-relative',
+    'Unmarried'
+))
+    race = right.selectbox(
+        'Race',
+        ('White', 'Black', 'Asian-Pac-Islander', 'Amer-Indian-Eskimo')
+    )
 
+
+    gender = left.selectbox('Gender', ('Male', 'Female'))
+    capital_gain = right.text_input('Capital_Gain')
+    capital_loss = left.text_input('Capital_loss')
+    hours_per_week = right.text_input('Hours_per_week')
+    native_country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
+                                    'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
+                                    'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
+                                    'Guatemala', 'Nicaragua', 'Scotland', 'Thailand', 'Yugoslavia', 'El-Salvador', 'Trinadad&Tobago', 'Peru', 'Hong','Holand-Netherlands'))
+    
+    
+    
+    #If button is clilcked
     if st.button("Predict Income"):
-        result = predict(age, final_weight, capital_gain, capital_loss, hours_per_week,
-                         gender, race, relationship, marital_status, education, workclass,
-                         occupation, native_country)
+        result = predict(age, workclass, final_weight, education, marital_status, occupation,
+            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
 
-        if result == '>50K':
+        if result == '>50k':
             st.success(f'Result: Your predicted income is {result}')
         else:
-            st.error(f'Result: Your predicted income is {result}')
+            st.error(f'Result: Your predicted income is {result} ')
 
-def predict(age, final_weight, capital_gain, capital_loss, hours_per_week,
-            gender, race, relationship, marital_status, education, workclass,
-            occupation, native_country):
+def predict(age, workclass, final_weight, education, marital_status, occupation,
+            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
-    input_data = {
-        'Age': age,
-        'Final Weight': final_weight,
-        'Capital Gain': capital_gain,
-        'capital loss': capital_loss,
-        'Hours per Week': hours_per_week,
-        f'Gender_ {gender}': 1,
-        f'Race_ {race}': 1,
-        f'Relationship_ {relationship}': 1,
-        f'Marital Status_ {marital_status}': 1,
-        f'EducationNum': 0,  # Default jika diperlukan
-        f'Workclass_ {workclass}': 1,
-        f'Occupation_ {occupation}': 1,
-        f'Native Country_ {native_country}': 1
-    }
+    # Inisialisasi semua kolom dengan 0
+    input_data = {col: 0 for col in columns}
 
-    # Lengkapi kolom kosong supaya sesuai dengan model
-    all_cols = xgboost_model.get_booster().feature_names
-    for col in all_cols:
-        if col not in input_data:
-            input_data[col] = 0
+    # Assign fitur numerik
+    input_data['age'] = age
+    input_data['final_weight'] = final_weight
+    input_data['capital_gain'] = capital_gain
+    input_data['capital_loss'] = capital_loss
+    input_data['hours_per_week'] = hours_per_week
 
+    # One-hot categorical
+    input_data[f'workclass_{workclass}'] = 1
+    input_data[f'education_{education}'] = 1
+    input_data[f'marital_status_{marital_status}'] = 1
+    input_data[f'occupation_{occupation}'] = 1
+    input_data[f'relationship_{relationship}'] = 1
+    input_data[f'race_{race}'] = 1
+    input_data[f'gender_{gender}'] = 1
+    input_data[f'native_country_{native_country}'] = 1
+
+    # Buat DataFrame
     df = pd.DataFrame([input_data])
+
+    # Prediksi
     prediction = xgboost_model.predict(df)[0]
     return '>50K' if prediction == 1 else '<=50K'
 
