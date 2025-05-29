@@ -90,6 +90,18 @@ def run_ml_app():
     'Other-relative',
     'Unmarried'
 ))
+   Race = right.selectbox('Race', ('White', 'Black', ' Asian-Pac-Islander', ' Amer-Indian-Eskimo'))
+    Gender = left.selectbox('Gender', ('Male', 'Female'))
+    Capital_Gain = right.number_input('Capital_Gain')
+    Capital_loss = left.number_input('Capital_loss')
+    Hours_per_week = right.number_input(label= 'Hours_per_week',
+                                        min_value = 10, max_value = 100)
+    Native_Country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
+                                    'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
+                                    'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
+                                    'Guatemala', 'Nicaragua', 'Scotland', 'Thailand', 'Yugoslavia', 'El-Salvador', 'Trinadad&Tobago', 'Peru', 'Hong','Holand-Netherlands'))
+    
+    Income = right.selectbox('Income', ('<50', '>50', '=50', '<=50', '>=50', ))
     
     #If button is clilcked
     pass
