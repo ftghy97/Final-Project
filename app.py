@@ -6,6 +6,9 @@ import pandas as pd
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
 
+with open('columns.pkl', 'rb') as f:
+    columns = pickle.load(f)
+
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
                 <h1 style="color:#fff;text-align:center">Income Category Prediction</h1> 
                 <h4 style="color:#fff;text-align:center">Made for: Credit Team</h4> 
@@ -133,29 +136,14 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
     input_data['hours_per_week'] = hours_per_week
 
     # One-hot categorical
-    if f'workclass_{workclass}' in input_data:
     input_data[f'workclass_{workclass}'] = 1
-
-if f'education_{education}' in input_data:
     input_data[f'education_{education}'] = 1
-
-if f'marital-status_{marital_status}' in input_data:
-    input_data[f'marital-status_{marital_status}'] = 1
-
-if f'occupation_{occupation}' in input_data:
+    input_data[f'marital_status_{marital_status}'] = 1
     input_data[f'occupation_{occupation}'] = 1
-
-if f'relationship_{relationship}' in input_data:
     input_data[f'relationship_{relationship}'] = 1
-
-if f'race_{race}' in input_data:
     input_data[f'race_{race}'] = 1
-
-if f'gender_{gender}' in input_data:
     input_data[f'gender_{gender}'] = 1
-
-if f'native-country_{native_country}' in input_data:
-    input_data[f'native-country_{native_country}'] = 1
+    input_data[f'native_country_{native_country}'] = 1
 
     # Buat DataFrame
     df = pd.DataFrame([input_data])
