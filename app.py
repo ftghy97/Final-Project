@@ -37,7 +37,7 @@ def run_ml_app():
     st.markdown(design, unsafe_allow_html=True)
     #Membuat Struktur Form
     left, right = st.columns((2,2))
-    age = left.number_input(label = 'Age',
+    age = left.number_input(label = 'age',
                             min_value = 17, max_value = 100)
     workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
     final_weight = left.text_input('Final Weight')
