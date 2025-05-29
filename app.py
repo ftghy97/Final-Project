@@ -144,5 +144,5 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
     prediction = xgboost_model.predict(df)[0]
     return '>50K' if prediction == 1 else '<=50K'
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
