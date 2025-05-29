@@ -105,7 +105,7 @@ def run_ml_app():
                                     'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
                                     'Guatemala', 'Nicaragua', 'Scotland', 'Thailand', 'Yugoslavia', 'El-Salvador', 'Trinadad&Tobago', 'Peru', 'Hong','Holand-Netherlands'))
     
-    Income = right.selectbox('Income', ('<50', '>50', '=50', '<=50', '>=50', ))
+    
     
     #If button is clilcked
     if st.button("Predict Income"):
