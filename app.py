@@ -119,7 +119,36 @@ def run_ml_app():
 def predict(Age, Workclass, Final_Weight, EducationNum, Marital_Status, Occupation, Relationship, Race, Gender, Capital_Gain, Capital_loss, Hours_per_week, Native_Country, Income):
     
     #Making prediction
-    pass
+       # One-hot encode manually (set to 1 only for selected value)
+    input_dict = {
+        'age': age,
+        'capital_gain': capital_gain,
+        'capital_loss': capital_loss,
+        'hours_per_week': hours_per_week,
+        f'workclass_{workclass}': 1,
+        f'education_{education}': 1,
+        f'marital_status_{marital_status}': 1,
+        f'occupation_{occupation}': 1,
+        f'relationship_{relationship}': 1,
+        f'race_{race}': 1,
+        f'sex_{sex}': 1,
+        f'native_country_{native_country}': 1
+    }
+
+    # Create DataFrame with correct structure
+    input_df = pd.DataFrame(columns=columns)
+    input_df.loc[0] = 0  # fill all columns with 0 first
+    input_df.loc[0, input_dict.keys()] = input_dict.values()
+
+    # Scale numeric columns
+    input_df[num_cols] = scaler.transform(input_df[num_cols])
+
+    # Predict using the trained model
+    prediction = model.predict(input_df)[0]
+
+    # Convert prediction result to label
+    result = '<=50K' if prediction == 0 else '>50K'
+    return result
 
 if __name__ == "__main__":
     main()
