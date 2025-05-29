@@ -127,7 +127,6 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
             'race', 'gender', 'capital_gain', 'capital_loss', 'hours_per_week']
 
     # Assign fitur numerik
-    input_data['age'] = age
     input_data['final_weight'] = final_weight
     input_data['capital_gain'] = capital_gain
     input_data['capital_loss'] = capital_loss
