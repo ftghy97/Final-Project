@@ -6,7 +6,7 @@ with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
 
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
-                <h1 style="color:#fff;text-align:center">Loan Eligibility Prediction App</h1> 
+                <h1 style="color:#fff;text-align:center">Income Category Prediction</h1> 
                 <h4 style="color:#fff;text-align:center">Made for: Credit Team</h4> 
                 """
 
