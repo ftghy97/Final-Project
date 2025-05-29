@@ -158,7 +158,7 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
     ]
 
     # Inisialisasi semua kolom dengan 0
-    input_data = {col: 0 for col in columns}
+    
 
     # Assign fitur numerik
     input_data['age'] = age
