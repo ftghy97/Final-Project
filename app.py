@@ -113,7 +113,7 @@ def run_ml_app():
     
 if st.button("Predict Income"):
    result = predict(age, workclass, final_weight, education, marital_status, occupation, relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
-if result == '>50K':
+   result == '>50K':
    st.success("Income more than 50K")
 else:
    st.success("Income less or equal to 50K")
