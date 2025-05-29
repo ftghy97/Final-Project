@@ -26,6 +26,9 @@ def main():
     
     if choice == "Home":
         st.write("Welcome to Home!")
+        st.markdown(desc_temp, unsafe_allow_html=True)
+    elif choice == "Machine Learning App":
+        run_ml_app()
        
 def run_ml_app():
     design = """<div style="padding:15px;">
