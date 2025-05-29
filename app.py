@@ -133,7 +133,7 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
 
     # Assign fitur numerik
     input_data['Age'] = float(age)
-    input_data['Final Weight'] = float(final_weight)
+    input_data['final_weight'] = float(final_weight)
     input_data['Capital Gain'] = float(capital_gain)
     input_data['capital loss'] = float(capital_loss)
     input_data['Hours per Week'] = float(hours_per_week)
