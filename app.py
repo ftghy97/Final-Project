@@ -26,12 +26,11 @@ def main():
     menu = ["Home", "Machine Learning App"]
     choice = st.sidebar.selectbox("Menu", menu)
 
-    if choice == "Home":
+       if choice == "Home":
         st.subheader("Home")
         st.markdown(desc_temp, unsafe_allow_html=True)
     elif choice == "Machine Learning App":
-         run_ml_app()
-
+        run_ml_app()
 
 def run_ml_app():
     design = """<div style="padding:15px;">
