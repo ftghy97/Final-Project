@@ -90,7 +90,8 @@ def run_ml_app():
     'Other-relative',
     'Unmarried'
 ))
-   Race = right.selectbox('Race', ('White', 'Black', ' Asian-Pac-Islander', ' Amer-Indian-Eskimo'))
+   Race = right.selectbox('Race', ('White', 'Black', 'Asian-Pac-Islander', 'Amer-Indian-Eskimo'))
+
     Gender = left.selectbox('Gender', ('Male', 'Female'))
     Capital_Gain = right.number_input('Capital_Gain')
     Capital_loss = left.number_input('Capital_loss')
