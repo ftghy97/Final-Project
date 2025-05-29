@@ -126,7 +126,13 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
     # Inisialisasi semua kolom dengan 0
-    input_data = {col in columns}
+    import pickle
+
+with open('model.pkl', 'rb') as f:
+    model_data = pickle.load(f)
+
+model = model_data['model']
+columns = model_data['columns']
 
     # Assign fitur numerik
     input_data['age'] = age
