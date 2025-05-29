@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as stc
 import pickle
 
+
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
 
@@ -122,7 +123,8 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
     # Inisialisasi semua kolom dengan 0
-    input_data = {col: 0 for col in columns}
+ columns = ['age', 'workclass', 'final_weight', 'education', 'marital_status', 'relationship', 
+            'race', 'gender', 'capital_gain', 'capital_loss', 'hours_per_week']
 
     # Assign fitur numerik
     input_data['age'] = age
