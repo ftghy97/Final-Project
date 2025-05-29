@@ -112,14 +112,15 @@ def run_ml_app():
     
     
 
-if st.button("Predict Income"):
-    result = predict(age, workclass, final_weight, education, marital_status, occupation,
-                    relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
-        
-if result == '>50K':
-st.success(f'Result: Your predicted income is {result}')
-else: st.error(f'Result: Your predicted income is {result}')
+ if st.button("Predict Income"):
+        result = predict(age, workclass, final_weight, education, marital_status, occupation,
+            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
 
+        if result == '>50k':
+            st.success(f'Result: Your predicted income is {result}')
+        else:
+            st.error(f'Result: Your predicted income is {result} ')
+           
 def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
  
