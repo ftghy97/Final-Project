@@ -5,7 +5,8 @@ import pandas as pd
 
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
-
+with open('columns.pkl', 'wb') as f:
+    pickle.dump(columns, f)
 with open('columns.pkl', 'rb') as f:
     columns = pickle.load(f)
 
@@ -127,17 +128,6 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
 
     # Inisialisasi semua kolom dengan 0
     input_data = {col: 0 for col in columns}
-   columns = [
-    'age', 'final_weight', 'capital_gain', 'capital_loss', 'hours_per_week',
-    'workclass_Private', 'workclass_Self-emp-not-inc', 'workclass_Gov',
-    'education_Bachelors', 'education_HS-grad', 'education_Masters',
-    'marital_status_Never-married', 'marital_status_Married-civ-spouse',
-    'occupation_Exec-managerial', 'occupation_Craft-repair',
-    'relationship_Not-in-family', 'relationship_Husband',
-    'race_White', 'race_Black',
-    'gender_Male', 'gender_Female',
-    'native_country_United-States', 'native_country_India'
-]
 
     # Assign fitur numerik
     input_data['Age'] = age
