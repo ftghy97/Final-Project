@@ -40,7 +40,7 @@ def run_ml_app():
                             min_value = 17, max_value = 100)
     workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
     final_weight = left.text_input('Final Weight')
-    education = right.selectbox('Education Num', (
+    education = right.selectbox('Education', (
     'Preschool',
     '1st-4th',
     '5th-6th',
@@ -58,6 +58,7 @@ def run_ml_app():
     'Prof-school',
     'Doctorate'
 ))
+    
     marital_status = left.selectbox('Marital Status', (
     'Married-civ-spouse',
     'Divorced',
@@ -90,17 +91,17 @@ def run_ml_app():
     'Other-relative',
     'Unmarried'
 ))
-    Race = right.selectbox(
+    race = right.selectbox(
         'Race',
         ('White', 'Black', 'Asian-Pac-Islander', 'Amer-Indian-Eskimo')
     )
 
 
-    Gender = left.selectbox('Gender', ('Male', 'Female'))
-    Capital_Gain = right.text_input('Capital_Gain')
-    Capital_loss = left.text_input('Capital_loss')
-    Hours_per_week = right.text_input('Hours_per_week')
-    Native_Country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
+    gender = left.selectbox('Gender', ('Male', 'Female'))
+    capital_gain = right.text_input('Capital_Gain')
+    capital_loss = left.text_input('Capital_loss')
+    hours_per_week = right.text_input('Hours_per_week')
+    native_country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
                                     'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
                                     'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
                                     'Guatemala', 'Nicaragua', 'Scotland', 'Thailand', 'Yugoslavia', 'El-Salvador', 'Trinadad&Tobago', 'Peru', 'Hong','Holand-Netherlands'))
@@ -110,15 +111,14 @@ def run_ml_app():
     #If button is clilcked
     if st.button("Predict Income"):
         result = predict(age, workclass, final_weight, education, marital_status, occupation,
-                     relationship, Race, Gender, Capital_Gain, Capital_loss,
-                     Hours_per_week, Native_Country)
+            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
 
         if result == '>50k':
             st.success(f'Result: Your predicted income is {result}')
         else:
             st.error(f'Result: Your predicted income is {result} ')
 
-def predict(Age, Workclass, Final_Weight, EducationNum, Marital_Status, Occupation, Relationship, Race, Gender, Capital_Gain, Capital_loss, Hours_per_week, Native_Country, Income):
+def predict(age, workclass, final_weight, education, marital_status, occupation, relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
     
     #Making prediction
        # One-hot encode manually (set to 1 only for selected value)
