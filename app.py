@@ -82,7 +82,7 @@ def run_ml_app():
     'Protective-serv',
     'Armed-Forces'
 ))
-    relationship = right.selectbox('Relationship', (
+    relationship = left.selectbox('Relationship', (
     'Wife',
     'Own-child',
     'Husband',
