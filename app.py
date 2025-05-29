@@ -108,14 +108,15 @@ def run_ml_app():
                                     'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
                                     'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
                                     'Guatemala', 'Nicaragua', 'Scotland', 'Thailand', 'Yugoslavia', 'El-Salvador', 'Trinadad&Tobago', 'Peru', 'Hong','Holand-Netherlands'))
-   if st.button("Predict Income"):
-      result = predict(age, workclass, final_weight, education, marital_status,
-                       occupation, relationship, race, gender,
-                       capital_gain, capital_loss, hours_per_week, native_country)
-      if result == '>50K':
-         st.success("Income more than 50K")
-      else:
-         st.success("Income less or equal to 50K")
+   
+if st.button("Predict Income"):
+   result = predict(age, workclass, final_weight, education, marital_status,
+                    occupation, relationship, race, gender,
+                     capital_gain, capital_loss, hours_per_week, native_country)
+   if result == '>50K':
+      st.success("Income more than 50K")
+   else:
+      st.success("Income less or equal to 50K")
 
 
 
