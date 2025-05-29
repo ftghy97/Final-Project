@@ -3,7 +3,7 @@ import streamlit.components.v1 as stc
 import pickle
 
 with open('xgboost_model.pkl', 'rb') as file:
-    Logistic_Regression_Model = pickle.load(file)
+   xgboost_model = pickle.load(file)
 
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
                 <h1 style="color:#fff;text-align:center">Loan Eligibility Prediction App</h1> 
