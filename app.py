@@ -22,10 +22,12 @@ desc_temp = """ ### Income Category Prediction
                 """
     
 def main():
-    choice = st.sidebar.selectbox("Menu", ["Home", "Predict"])
+    stc.html(html_temp)
+    menu = ["Home", "Machine Learning App"]
+    choice = st.sidebar.selectbox("Menu", menu)
     
-    if choice == "Home":
-        st.write("Welcome to Home!")
+     if choice == "Home":
+        st.subheader("Home")
         st.markdown(desc_temp, unsafe_allow_html=True)
     elif choice == "Machine Learning App":
         run_ml_app()
