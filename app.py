@@ -129,7 +129,7 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
     occ = 0 if occupation == 'Exec-managerial' else 1
 
     # Making prediction (assume model expects this order)
-    prediction = model.predict([[gen, mar, edu, work, occ,
+    prediction = xgboost_model.predict([[gen, mar, edu, work, occ,
                                  float(capital_gain),
                                  float(capital_loss),
                                  float(hours_per_week)]])
