@@ -10,8 +10,8 @@ html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px
                 <h4 style="color:#fff;text-align:center">Made for: Credit Team</h4> 
                 """
 
-desc_temp = """ ### Loan Prediction App 
-                This app is used by Credit team for deciding Loan Application
+desc_temp = """ ### Income Category Prediction
+                This app is used by Credit team 8
                 
                 #### Data Source
                 Kaggle: Link <Masukkan Link>
