@@ -39,7 +39,7 @@ def run_ml_app():
     age = left.number_input(label = 'Age',
                             min_value = 17, max_value = 100)
     workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
-    final_weight = left.number_input('Final Weight')
+    final_weight = left.text_input('Final Weight')
     education = right.selectbox('Education', (
     'Preschool',
     '1st-4th',
@@ -98,9 +98,9 @@ def run_ml_app():
 
 
     gender = left.selectbox('Gender', ('Male', 'Female'))
-    capital_gain = right.number_input('Capital_Gain')
-    capital_loss = left.number_input('Capital_loss')
-    hours_per_week = right.number_input('Hours_per_week')
+    capital_gain = right.text_input('Capital_Gain')
+    capital_loss = left.text_input('Capital_loss')
+    hours_per_week = right.text_input('Hours_per_week')
     native_country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
                                     'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
                                     'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
@@ -121,21 +121,32 @@ def run_ml_app():
 def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
-    # Preprocessing User Input (Binary Encoding)
-    gen = 0 if gender == 'Male' else 1
-    mar = 0 if marital_status == 'Married-civ-spouse' else 1
-    edu = 0 if education == 'Bachelors' else 1
-    work = 0 if workclass == 'Private' else 1
-    occ = 0 if occupation == 'Exec-managerial' else 1
+    # Inisialisasi semua kolom dengan 0
+    input_data = {col: 0 for col in columns}
 
-    # Making prediction (assume model expects this order)
-    prediction = xgboost_model.predict([[gen, mar, edu, work, occ,
-                                 float(capital_gain),
-                                 float(capital_loss),
-                                 float(hours_per_week)]])
+    # Assign fitur numerik
+    input_data['age'] = age
+    input_data['final_weight'] = final_weight
+    input_data['capital_gain'] = capital_gain
+    input_data['capital_loss'] = capital_loss
+    input_data['hours_per_week'] = hours_per_week
 
-    result = '>50K' if prediction == 1 else '<=50K'
-    return result
+    # One-hot categorical
+    input_data[f'workclass_{workclass}'] = 1
+    input_data[f'education_{education}'] = 1
+    input_data[f'marital_status_{marital_status}'] = 1
+    input_data[f'occupation_{occupation}'] = 1
+    input_data[f'relationship_{relationship}'] = 1
+    input_data[f'race_{race}'] = 1
+    input_data[f'sex_{gender}'] = 1
+    input_data[f'native_country_{native_country}'] = 1
+
+    # Buat DataFrame
+    df = pd.DataFrame([input_data])
+
+    # Prediksi
+    prediction = xgboost_model.predict(df)[0]
+    return '>50K' if prediction == 1 else '<=50K'
 
 if __name__ == "__main__":
     main()
