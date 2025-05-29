@@ -39,7 +39,7 @@ def run_ml_app():
     age = left.number_input(label = 'Age',
                             min_value = 17, max_value = 100)
     workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
-    final_weight = left.text_input('Final Weight')
+    final_weight = left.number_input('Final Weight')
     education = right.selectbox('Education', (
     'Preschool',
     '1st-4th',
@@ -98,9 +98,9 @@ def run_ml_app():
 
 
     gender = left.selectbox('Gender', ('Male', 'Female'))
-    capital_gain = right.text_input('Capital_Gain')
-    capital_loss = left.text_input('Capital_loss')
-    hours_per_week = right.text_input('Hours_per_week')
+    capital_gain = right.number_input('Capital_Gain')
+    capital_loss = left.number_input('Capital_loss')
+    hours_per_week = right.number_input('Hours_per_week')
     native_country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
                                     'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
                                     'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
