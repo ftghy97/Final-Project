@@ -4,8 +4,8 @@ import xgboost as xgb
 import numpy as np
 import joblib
 
-with open('xgboost_model.pkl', 'rb') as file:
-   xgboost_model = pickle.load(file)
+with open model = joblib.load('xgb_model.pkl')
+encoder = joblib.load('encoder.pkl')
 
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
                 <h1 style="color:#fff;text-align:center">Income Category Prediction</h1> 
