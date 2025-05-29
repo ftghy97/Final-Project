@@ -97,10 +97,9 @@ def run_ml_app():
 
 
     Gender = left.selectbox('Gender', ('Male', 'Female'))
-    Capital_Gain = right.number_input('Capital_Gain')
-    Capital_loss = left.number_input('Capital_loss')
-    Hours_per_week = right.number_input(label= 'Hours_per_week',
-                                        min_value = 10, max_value = 100)
+    Capital_Gain = right.text_input('Capital_Gain')
+    Capital_loss = left.text_input('Capital_loss')
+    Hours_per_week = right.text_input('Hours_per_week')
     Native_Country = left.selectbox('Native Country',('United-States','Cambodia','England','Puerto-Rico','Canada','Germany','Outlying-US(Guam-USVI-etc)',
                                     'India', 'Japan','Greece', 'South', 'China', 'Cuba', 'Iran', 'Honduras','Philippines', 'Italy','Poland','Jamaica', 'Vietnam', 
                                     'Mexico','Portugal', 'Ireland', 'France', 'Dominican-Republic', 'Laos','Ecuador','Taiwan', 'Haiti','Columbia', 'Hungary',
