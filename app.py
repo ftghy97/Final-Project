@@ -150,3 +150,6 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
 
 if __name__ == "__main__":
     main()
+
+
+
