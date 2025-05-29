@@ -34,8 +34,63 @@ def run_ml_app():
                 </div
              """
     st.markdown(design, unsafe_allow_html=True)
+    #Membuat Struktur Form
+    left, right = st.columns((2,2))
+    age = left.number_input(label = 'Age',
+                            min value = 10, max_value = 100)
+    workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
+    final_weight = left.number_input('Final Weight')
+    education = right.selectbox('Education Num', (
+    'Preschool',
+    '1st-4th',
+    '5th-6th',
+    '7th-8th',
+    '9th',
+    '10th',
+    '11th',
+    '12th',
+    'HS-grad',
+    'Some-college',
+    'Assoc-voc',
+    'Assoc-acdm',
+    'Bachelors',
+    'Masters',
+    'Prof-school',
+    'Doctorate'
+))
+    marital_status = left.selectbox('Marital Status', (
+    'Married-civ-spouse',
+    'Divorced',
+    'Never-married',
+    'Separated',
+    'Widowed',
+    'Married-spouse-absent'
+))
+    occupation = right.selectbox('Occupation', (
+    'Tech-support',
+    'Craft-repair',
+    'Other-service',
+    'Sales',
+    'Exec-managerial',
+    'Prof-specialty',
+    'Handlers-cleaners',
+    'Machine-op-inspct',
+    'Adm-clerical',
+    'Farming-fishing',
+    'Transport-moving',
+    'Priv-house-serv',
+    'Protective-serv',
+    'Armed-Forces'
+))
+    relationship = right.selectbox('Relationship', (
+    'Wife',
+    'Own-child',
+    'Husband',
+    'Not-in-family',
+    'Other-relative',
+    'Unmarried'
+))
     
-
     #If button is clilcked
     pass
 
