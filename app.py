@@ -157,25 +157,10 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
         'native_country_Holand-Netherlands'
     ]
 
-    # Inisialisasi semua kolom dengan 0
+
     
 
-    # Assign fitur numerik
-    input_data['age'] = age
-    input_data['final_weight'] = final_weight
-    input_data['capital_gain'] = capital_gain
-    input_data['capital_loss'] = capital_loss
-    input_data['hours_per_week'] = hours_per_week
-
-    # One-hot categorical
-    input_data[f'workclass_{workclass}'] = 1
-    input_data[f'education_{education}'] = 1
-    input_data[f'marital_status_{marital_status}'] = 1
-    input_data[f'occupation_{occupation}'] = 1
-    input_data[f'relationship_{relationship}'] = 1
-    input_data[f'race_{race}'] = 1
-    input_data[f'gender_{gender}'] = 1
-    input_data[f'native_country_{native_country}'] = 1
+    
 
     # Buat DataFrame
     df = pd.DataFrame([input_data])
