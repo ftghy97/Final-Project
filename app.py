@@ -2,7 +2,6 @@ import streamlit as st
 import streamlit.components.v1 as stc
 import pickle
 
-
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
 
@@ -37,7 +36,7 @@ def run_ml_app():
     st.markdown(design, unsafe_allow_html=True)
     #Membuat Struktur Form
     left, right = st.columns((2,2))
-    age = left.number_input(label = 'age',
+    age = left.number_input(label = 'Age',
                             min_value = 17, max_value = 100)
     workclass = right.selectbox('Workclass', ('Private', 'State-gov', 'Self-emp-not-inc'))
     final_weight = left.text_input('Final Weight')
@@ -123,24 +122,14 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
     # Inisialisasi semua kolom dengan 0
- columns = ['age', 'workclass', 'final_weight', 'education', 'marital_status', 'relationship', 
-            'race', 'gender', 'capital_gain', 'capital_loss', 'hours_per_week']
+    input_data = {col: 0 for col in columns}
 
     # Assign fitur numerik
-     input_data = pd.DataFrame([{
-        'Age': age,
-        'Workclass': workclass,
-        'Education': education,
-        'Marital Status': marital_status,
-        'Occupation': occupation,
-        'Relationship': relationship,
-        'Race': race,
-        'Gender': gender,
-        'Capital Gain': capital_gain,
-        'capital loss': capital_loss,
-        'Hours per Week': hours_per_week,
-        'Native Country': native_country
-    }])
+    input_data['age'] = age
+    input_data['final_weight'] = final_weight
+    input_data['capital_gain'] = capital_gain
+    input_data['capital_loss'] = capital_loss
+    input_data['hours_per_week'] = hours_per_week
 
     # One-hot categorical
     input_data[f'workclass_{workclass}'] = 1
