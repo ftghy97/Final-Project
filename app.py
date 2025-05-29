@@ -1,6 +1,8 @@
 import streamlit as st
-import streamlit.components.v1 as stc
-import pickle
+import pandas as pd
+import xgboost as xgb
+import numpy as np
+import joblib
 
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
