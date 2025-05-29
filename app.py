@@ -20,18 +20,13 @@ desc_temp = """ ### Income Category Prediction
                 #### Data Source
                 Kaggle: Link <Masukkan Link>
                 """
-
-def main():
-    stc.html(html_temp)
-    menu = ["Home", "Machine Learning App"]
-    choice = st.sidebar.selectbox("Menu", menu)
     
-     if choice == "Home":
-        st.subheader("Home")
-        st.markdown(desc_temp, unsafe_allow_html=True)
-    elif choice == "Machine Learning App":
-        run_ml_app()
-
+def main():
+    choice = st.sidebar.selectbox("Menu", ["Home", "Predict"])
+    
+    if choice == "Home":
+        st.write("Welcome to Home!")
+       
 def run_ml_app():
     design = """<div style="padding:15px;">
                     <h1 style="color:#fff">Income Category Prediction</h1>
