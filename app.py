@@ -111,7 +111,8 @@ def run_ml_app():
     
     
     
-       if st.button("Predict Income"):
+        #If button is clilcked
+    if st.button("Predict Income"):
         result = predict(age, workclass, final_weight, education, marital_status, occupation,
                          relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country)
         
