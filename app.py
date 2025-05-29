@@ -118,31 +118,23 @@ def run_ml_app():
         else:
             st.error(f'Result: Your predicted income is {result} ')
 
-def predict(age, workclass, final_weight, education, marital_status, occupation,
-            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
+def predict(gender, marital_status, education, workclass, occupation,
+            capital_gain, capital_loss, hours_per_week):
 
-    input_dict = {
-        'age': int(age),
-        'capital_gain': float(capital_gain) if capital_gain else 0,
-        'capital_loss': float(capital_loss) if capital_loss else 0,
-        'hours_per_week': float(hours_per_week) if hours_per_week else 0,
-        f'workclass_{workclass}': 1,
-        f'education_{education}': 1,
-        f'marital_status_{marital_status}': 1,
-        f'occupation_{occupation}': 1,
-        f'relationship_{relationship}': 1,
-        f'race_{race}': 1,
-        f'sex_{gender}': 1,
-        f'native_country_{native_country}': 1
-    }
+    # Preprocessing User Input (Binary Encoding)
+    gen = 0 if gender == 'Male' else 1
+    mar = 0 if marital_status == 'Married-civ-spouse' else 1
+    edu = 0 if education == 'Bachelors' else 1
+    work = 0 if workclass == 'Private' else 1
+    occ = 0 if occupation == 'Exec-managerial' else 1
 
-    input_df = pd.DataFrame(columns=columns)
-    input_df.loc[0] = 0
-    input_df.loc[0, input_dict.keys()] = input_dict.values()
+    # Making prediction (assume model expects this order)
+    prediction = model.predict([[gen, mar, edu, work, occ,
+                                 float(capital_gain),
+                                 float(capital_loss),
+                                 float(hours_per_week)]])
 
-    input_df[num_cols] = scaler.transform(input_df[num_cols])
-    prediction = model.predict(input_df)[0]
-    result = '>50K' if prediction == 1 else '<=50K'
+    result = 'Not Eligible' if prediction == 0 else 'Eligible'
     return result
 
 if __name__ == "__main__":
