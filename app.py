@@ -118,8 +118,8 @@ def run_ml_app():
         else:
             st.error(f'Result: Your predicted income is {result} ')
 
-def predict(gender, marital_status, education, workclass, occupation,
-            capital_gain, capital_loss, hours_per_week):
+def predict(age, workclass, final_weight, education, marital_status, occupation,
+            relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
 
     # Preprocessing User Input (Binary Encoding)
     gen = 0 if gender == 'Male' else 1
