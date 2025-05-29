@@ -124,6 +124,9 @@ def run_ml_app():
 
 def predict(age, workclass, final_weight, education, marital_status, occupation,
             relationship, race, gender, capital_gain, capital_loss, hours_per_week, native_country):
+    columns = ['age', 'workclass', 'final_weight', 'education', 'marital_status', 'occupation',
+               'relationship', 'race', 'gender', 'capital_gain', 'capital_loss',
+               'hours_per_week', 'native_country']
 
     # Inisialisasi semua kolom dengan 0
     input_data = {col: 0 for col in columns}
