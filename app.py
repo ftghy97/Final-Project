@@ -133,7 +133,7 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
         f'occupation_{occupation}': 1,
         f'relationship_{relationship}': 1,
         f'race_{race}': 1,
-        f'sex_{sex}': 1,
+        f'gender_{gender}': 1,
         f'native_country_{native_country}': 1
     }
 
