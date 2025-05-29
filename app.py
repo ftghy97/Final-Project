@@ -108,8 +108,10 @@ def run_ml_app():
     Income = right.selectbox('Income', ('<50', '>50', '=50', '<=50', '>=50', ))
     
     #If button is clilcked
-    if button:
-        result = predict(Age, Workclass, Final_Weight, EducationNum, Marital_Status, Occupation, Relationship, Race, Gender, Capital_Gain, Capital_loss, Hours_per_week, Native_Country, Income)
+    if st.button("Predict Income"):
+        result = predict(age, workclass, final_weight, education, marital_status, occupation,
+                     relationship, Race, Gender, Capital_Gain, Capital_loss,
+                     Hours_per_week, Native_Country)
 
         if result == '>50k':
             st.success(f'Result: Your predicted income is {result}')
