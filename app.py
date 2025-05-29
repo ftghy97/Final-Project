@@ -5,8 +5,7 @@ import pandas as pd
 
 with open('xgboost_model.pkl', 'rb') as file:
    xgboost_model = pickle.load(file)
-with open('columns.pkl', 'wb') as f:
-    pickle.dump(columns, f)
+
 with open('columns.pkl', 'rb') as f:
     columns = pickle.load(f)
 
@@ -130,11 +129,12 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
     input_data = {col: 0 for col in columns}
 
     # Assign fitur numerik
-    input_data['Age'] = age
-    input_data['Final Weight'] = final_weight
-    input_data['Capital Gain'] = capital_gain
-    input_data['capital loss'] = capital_loss
-    input_data['Hours per Week'] = hours_per_week
+    input_data['Age'] = float(age)
+    input_data['Final Weight'] = float(final_weight)
+    input_data['Capital Gain'] = float(capital_gain)
+    input_data['capital loss'] = float(capital_loss)
+    input_data['Hours per Week'] = float(hours_per_week)
+
 
     # One-hot categorical sesuai dengan case kolom dari model
     input_data[f'Workclass_ {workclass}'] = 1
