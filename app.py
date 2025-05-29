@@ -127,10 +127,20 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
             'race', 'gender', 'capital_gain', 'capital_loss', 'hours_per_week']
 
     # Assign fitur numerik
-    input_data['final_weight'] = final_weight
-    input_data['capital_gain'] = capital_gain
-    input_data['capital_loss'] = capital_loss
-    input_data['hours_per_week'] = hours_per_week
+     input_data = pd.DataFrame([{
+        'Age': age,
+        'Workclass': workclass,
+        'Education': education,
+        'Marital Status': marital_status,
+        'Occupation': occupation,
+        'Relationship': relationship,
+        'Race': race,
+        'Gender': gender,
+        'Capital Gain': capital_gain,
+        'capital loss': capital_loss,
+        'Hours per Week': hours_per_week,
+        'Native Country': native_country
+    }])
 
     # One-hot categorical
     input_data[f'workclass_{workclass}'] = 1
