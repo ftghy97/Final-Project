@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as stc
 import pickle
 
-with open('Logistic_Regression_model.pkl', 'rb') as file:
+with open('xgboost_model.pkl', 'rb') as file:
     Logistic_Regression_Model = pickle.load(file)
 
 html_temp = """<div style="background-color:#000;padding:10px;border-radius:10px">
@@ -39,8 +39,8 @@ def run_ml_app():
     #If button is clilcked
     pass
 
-def predict(gender, married, dependent, education, self_employed, applicant_income, coApplicant_income
-                         ,loan_amount, loan_amount_term, credit_history, property_area):
+def predict(Age, Workclass, Final Weight, EducationNum, Marital Status, Occupation, 
+            Relationship, Race, Gender, Capital Gain, Capital loss, Hours per WEEK, Native Country, Income):
     
     #Making prediction
     pass
