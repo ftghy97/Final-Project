@@ -134,7 +134,7 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
                                  float(capital_loss),
                                  float(hours_per_week)]])
 
-    result = 'Not Eligible' if prediction == 0 else 'Eligible'
+    result = '>50K' if prediction == 1 else '<=50K'
     return result
 
 if __name__ == "__main__":
