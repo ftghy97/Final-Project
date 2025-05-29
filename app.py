@@ -139,7 +139,7 @@ def predict(age, workclass, final_weight, education, marital_status, occupation,
     input_data[f'occupation_{occupation}'] = 1
     input_data[f'relationship_{relationship}'] = 1
     input_data[f'race_{race}'] = 1
-    input_data[f'sex_{gender}'] = 1
+    input_data[f'gender{gender}'] = 1
     input_data[f'native_country_{native_country}'] = 1
 
     # Buat DataFrame
